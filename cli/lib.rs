@@ -93,11 +93,7 @@ To grant permissions, set them before the script argument. For example:
   run_function(worker, function, arg).map_err(|e| e.into())
 }
 
-// The function name is conceptually correct, but wrong from the Deno creates
-// setup, as we are actually using code from deno_cli, rather than from
-// deno_runtime. I think Deno project should move many features that are
-// currently implemented inside deno_cli to deno_runtime.
-pub fn run_js_function_with_arg_and_get_its_returning_value_using_deno_runtime(
+pub fn run_js_function_with_arg_and_get_its_returning_value_using_deno_cli(
   main_module_url_or_path: &str,
   function: &str,
   arg: serde_json::Value,
@@ -135,13 +131,12 @@ pub fn run_js_function_with_arg_and_get_its_returning_value_using_deno_runtime(
 }
 
 #[test]
-fn test_run_js_function_with_arg_and_get_its_returning_value_using_deno_runtime(
-) {
+fn test_run_js_function_with_arg_and_get_its_returning_value_using_deno_cli() {
   let main_module_path = "../test_embed/example.tsx";
   let function = "globalThis.test";
   let arg = deno_core::serde_json::json!({ "content": "Hello world! I come from Rust :-)" });
   let result =
-    run_js_function_with_arg_and_get_its_returning_value_using_deno_runtime(
+    run_js_function_with_arg_and_get_its_returning_value_using_deno_cli(
       main_module_path,
       function,
       arg,
