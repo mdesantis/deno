@@ -137,14 +137,15 @@ pub fn run_js_function_with_arg_and_get_its_returning_value_using_deno_runtime(
 #[test]
 fn test_run_js_function_with_arg_and_get_its_returning_value_using_deno_runtime(
 ) {
-  let main_module_path = "../../deno_example/example.tsx";
+  let main_module_path = "../test_embed/example.tsx";
   let function = "globalThis.test";
-  let arg = deno_core::serde_json::json!({ "content": "Hello world!" });
+  let arg = deno_core::serde_json::json!({ "content": "Hello world! I come from Rust :-)" });
   let result =
     run_js_function_with_arg_and_get_its_returning_value_using_deno_runtime(
       main_module_path,
       function,
       arg,
     );
+
   println!("Result: {result:?}");
 }
